@@ -1,10 +1,12 @@
+import SupplierInventory from "@/components/ui/products/SupplierInventory";
+
 export default function Dashboard(){
 
 
     return(
 
         <div>
-            <h1>aca es la pagina principal</h1>
+           <SupplierInventory/>
         </div>
     )
 }
