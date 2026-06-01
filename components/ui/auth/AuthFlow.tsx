@@ -1,11 +1,14 @@
 "use client";
 import { useState } from "react";
+// 1. Importa useRouter desde el hook correcto de Next.js
+import { useRouter } from "next/navigation"; 
 import { WelcomeScreen } from "./WelcomeScreen";
 import { LoginScreen } from "./Loginscreen";
 import { RestaurantRegisterScreen } from "./RestaurantRegisterScreen";
 import { SupplierRegisterScreen } from "./SupplierRegisterScreen";
 import { SuccessScreen } from "./SuccessScreen";
 
+// Eliminamos el tipo "dashboard" ya que ahora es una ruta real
 type Screen =
   | "welcome"
   | "restaurant-login"
@@ -17,8 +20,12 @@ type Screen =
 
 export function AuthFlow() {
   const [screen, setScreen] = useState<Screen>("welcome");
+  
+  // 2. Inicializa el router
+  const router = useRouter();
 
-  const transitions: Record<string, () => void> = {
+  // Centralizamos las transiciones
+  const transitions = {
     goWelcome: () => setScreen("welcome"),
     goRestaurantLogin: () => setScreen("restaurant-login"),
     goSupplierLogin: () => setScreen("supplier-login"),
@@ -26,6 +33,7 @@ export function AuthFlow() {
     goSupplierRegister: () => setScreen("supplier-register"),
     successRestaurant: () => setScreen("success-restaurant"),
     successSupplier: () => setScreen("success-supplier"),
+    goDashboard: () => router.push("/dashboard"), 
   };
 
   switch (screen) {
@@ -46,7 +54,7 @@ export function AuthFlow() {
           role="restaurant"
           onBack={transitions.goWelcome}
           onRegister={transitions.goRestaurantRegister}
-          onLogin={() => transitions.successRestaurant()}
+          onLogin={transitions.goDashboard} // Llama a router.push("/dashboard")
         />
       );
 
@@ -56,7 +64,7 @@ export function AuthFlow() {
           role="supplier"
           onBack={transitions.goWelcome}
           onRegister={transitions.goSupplierRegister}
-          onLogin={() => transitions.successSupplier()}
+          onLogin={transitions.goDashboard} // Llama a router.push("/dashboard")
         />
       );
 
@@ -77,10 +85,20 @@ export function AuthFlow() {
       );
 
     case "success-restaurant":
-      return <SuccessScreen role="restaurant" onRestart={transitions.goWelcome} />;
+      return (
+        <SuccessScreen 
+          role="restaurant" 
+          onRestart={transitions.goRestaurantLogin} 
+        />
+      );
 
     case "success-supplier":
-      return <SuccessScreen role="supplier" onRestart={transitions.goWelcome} />;
+      return (
+        <SuccessScreen 
+          role="supplier" 
+          onRestart={transitions.goSupplierLogin} 
+        />
+      );
 
     default:
       return null;

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { InputField } from "./FormFields";
 import Image from "next/image";
+import { Utensils, ArrowLeft, ShieldCheck, CheckCircle, Headphones } from "lucide-react";
 
 interface RestaurantRegisterProps {
   onBack: () => void;
@@ -10,14 +11,10 @@ interface RestaurantRegisterProps {
 
 export function RestaurantRegisterScreen({ onBack, onSuccess }: RestaurantRegisterProps) {
   const accent = "#4a7c3f";
+  const accentMid = "#a8d5a2";
 
   const [form, setForm] = useState({
-    restaurantName: "",
-    rfc: "",
-    contactName: "",
-    email: "",
-    phone: "",
-    address: "",
+    restaurantName: "", rfc: "", contactName: "", email: "", phone: "", address: "",
   });
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -34,165 +31,91 @@ export function RestaurantRegisterScreen({ onBack, onSuccess }: RestaurantRegist
   };
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] flex">
+    <div className="min-h-screen bg-[#faf8f5] flex font-sans">
+      {/* Left panel */}
+      <div className="hidden lg:flex w-5/12 flex-col justify-between p-12 relative overflow-hidden">
+        <Image
+          src="/images/restSto.jpeg"
+          alt="Registro Restaurante"
+          fill
+          priority
+          className="object-cover z-0"
+        />
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] z-10" />
 
-<div className="hidden lg:flex w-5/12 flex-col justify-between p-12 relative overflow-hidden bg-[#2d5a27]">
-
-  <Image
-    src="/images/restaurante.webp"
-    alt="Registro de restaurante"
-    fill
-    priority
-    sizes="40vw"
-    className="object-cover object-center brightness-75 contrast-110 transition-transform duration-700 hover:scale-105"
-  />
-
-  <div className="absolute inset-0 bg-gradient-to-b from-[#1a3d18]/70 via-[#2d5a27]/60 to-[#122610]/85 z-0" />
-
-  <div className="relative z-10">
-    <button
-      onClick={onBack}
-      className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm mb-12"
-    >
-      ← Volver al login
-    </button>
-
-    <div className="flex items-center gap-3">
-      <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center text-2xl">
-        🍴
-      </div>
-
-      <span
-        className="text-2xl font-bold text-white"
-        style={{ fontFamily: "'Georgia', serif" }}
-      >
-        Gastro<span className="text-[#a8d5a2]">Next</span>
-      </span>
-    </div>
-  </div>
-
-  <div className="relative z-10 space-y-6">
-    <h2
-      className="text-4xl font-bold text-white leading-tight"
-      style={{ fontFamily: "'Georgia', serif" }}
-    >
-      Únete a la red
-      <br />
-      <span className="text-[#a8d5a2]">gastronómica</span>
-      <br />
-      más grande.
-    </h2>
-
-    <p className="text-white/80 text-base leading-relaxed max-w-xs">
-      Accede a cientos de proveedores locales certificados y optimiza tu cadena
-      de suministro.
-    </p>
-
-    <div className="space-y-3 pt-4">
-      {[
-        {
-          icon: "🔒",
-          title: "Registro 100% seguro",
-          desc: "Datos encriptados con AES-256",
-        },
-        {
-          icon: "✅",
-          title: "Proveedores certificados",
-          desc: "Todos los socios pasan verificación",
-        },
-        {
-          icon: "🎧",
-          title: "Soporte 24/7",
-          desc: "Equipo disponible siempre",
-        },
-      ].map(({ icon, title, desc }) => (
-        <div
-          key={title}
-          className="flex items-center gap-3 bg-white/10 rounded-xl p-3 backdrop-blur-md border border-white/10"
-        >
-          <span className="text-xl">{icon}</span>
-
-          <div>
-            <p className="text-white text-sm font-semibold">{title}</p>
-            <p className="text-white/60 text-xs">{desc}</p>
+        <div className="relative z-20">
+          <button onClick={onBack} className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm mb-12 group">
+            <ArrowLeft size={16} className="transform group-hover:-translate-x-1 transition-transform" /> 
+            Volver al inicio
+          </button>
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center text-white">
+              <Utensils size={24} />
+            </div>
+            <span className="text-2xl font-bold text-white tracking-tight">
+              Gastro<span style={{ color: accentMid }}>Next</span>
+            </span>
           </div>
         </div>
-      ))}
-    </div>
-  </div>
 
-  <div className="relative z-10 text-white/40 text-xs">
-    © 2026 GastroNext S.A.
-  </div>
-</div>
-
-      {/* Right panel — form */}
-      <div className="flex-1 flex flex-col items-center justify-center px-8 py-12 overflow-y-auto">
-        <div className="lg:hidden w-full max-w-2xl mb-6">
-          <button onClick={onBack} className="text-sm text-[#888] hover:text-[#333] transition-colors">← Volver</button>
+        <div className="relative z-20 space-y-6">
+          <h2 className="text-4xl font-extrabold text-white leading-tight tracking-tight">
+            Únete a la red<br />
+            <span style={{ color: accentMid }}>más grande</span> del país.
+          </h2>
+          <div className="space-y-4 pt-4">
+            {[
+              { icon: ShieldCheck, title: "Registro Seguro", desc: "Datos protegidos con AES-256" },
+              { icon: CheckCircle, title: "Socio Certificado", desc: "Acceso a proveedores validados" },
+              { icon: Headphones, title: "Soporte VIP", desc: "Atención prioritaria 24/7" },
+            ].map((item) => (
+              <div key={item.title} className="flex items-center gap-4 bg-white/10 rounded-xl p-3 border border-white/10 backdrop-blur-md">
+                <item.icon size={20} className="text-white" style={{ color: accentMid }} />
+                <div>
+                  <p className="text-white text-sm font-semibold">{item.title}</p>
+                  <p className="text-white/60 text-xs">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+        <div className="relative z-20 text-white/40 text-xs">© 2026 GastroNext S.A.</div>
+      </div>
 
+      {/* Right panel */}
+      <div className="flex-1 flex flex-col items-center justify-center px-8 py-12">
         <div className="w-full max-w-2xl">
           <div className="mb-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 border bg-[#f0f7ee] text-[#4a7c3f] border-[#4a7c3f]/20">
-              🍴 Restaurante
+              <Utensils size={12} /> Restaurante
             </div>
-            <h2 className="text-3xl font-bold text-[#1a1a1a]" style={{ fontFamily: "'Georgia', serif" }}>
-              Registro de Restaurante
-            </h2>
-            <p className="text-[#999] mt-2">Completa tu perfil profesional para comenzar a abastecer tu cocina.</p>
+            <h2 className="text-3xl font-bold text-[#1a1a1a] tracking-tight">Registro de Restaurante</h2>
+            <p className="text-[#999] mt-2">Optimiza tu cocina con los mejores suministros.</p>
           </div>
 
-          {/* Form grid */}
           <div className="grid grid-cols-2 gap-5">
-            <div className="col-span-2 sm:col-span-1">
-              <InputField label="Nombre del Restaurante" placeholder="Ej. The Green Bistro" value={form.restaurantName} onChange={set("restaurantName")} accentColor={accent} required />
-            </div>
-            <div className="col-span-2 sm:col-span-1">
-              <InputField label="RFC" placeholder="XAXX010101000" value={form.rfc} onChange={set("rfc")} accentColor={accent} required />
-            </div>
-            <div className="col-span-2 sm:col-span-1">
-              <InputField label="Nombre de Contacto" placeholder="Nombre completo" value={form.contactName} onChange={set("contactName")} accentColor={accent} required />
-            </div>
-            <div className="col-span-2 sm:col-span-1">
-              <InputField label="Email del Restaurante" type="email" placeholder="correo@restaurante.com" value={form.email} onChange={set("email")} accentColor={accent} required />
-            </div>
-            <div className="col-span-2 sm:col-span-1">
-              <InputField label="Número Telefónico" type="tel" placeholder="+52 55 0000 0000" value={form.phone} onChange={set("phone")} accentColor={accent} required />
-            </div>
-            <div className="col-span-2 sm:col-span-1">
-              <InputField label="Dirección" placeholder="Calle, Col., Ciudad, CP" value={form.address} onChange={set("address")} accentColor={accent} required />
-            </div>
+            <div className="col-span-2 sm:col-span-1"><InputField label="Nombre del Negocio" placeholder="Ej. Green Bistro" value={form.restaurantName} onChange={set("restaurantName")} accentColor={accent} /></div>
+            <div className="col-span-2 sm:col-span-1"><InputField label="RFC" placeholder="XAXX010101000" value={form.rfc} onChange={set("rfc")} accentColor={accent} /></div>
+            <div className="col-span-2 sm:col-span-1"><InputField label="Nombre de Contacto" placeholder="Nombre completo" value={form.contactName} onChange={set("contactName")} accentColor={accent} /></div>
+            <div className="col-span-2 sm:col-span-1"><InputField label="Email Corporativo" type="email" placeholder="gerencia@restaurante.com" value={form.email} onChange={set("email")} accentColor={accent} /></div>
+            <div className="col-span-2 sm:col-span-1"><InputField label="Teléfono" type="tel" placeholder="+52 55..." value={form.phone} onChange={set("phone")} accentColor={accent} /></div>
+            <div className="col-span-2 sm:col-span-1"><InputField label="Dirección" placeholder="Calle, Col, Ciudad, CP" value={form.address} onChange={set("address")} accentColor={accent} /></div>
           </div>
 
           <div className="mt-6 space-y-5">
-            <label className="flex items-start gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={agreed}
-                onChange={(e) => setAgreed(e.target.checked)}
-                className="w-4 h-4 mt-0.5 rounded flex-shrink-0 cursor-pointer"
-                style={{ accentColor: accent }}
-              />
-              <span className="text-sm text-[#888] leading-relaxed">
-                Acepto los{" "}
-                <a href="#" className="underline font-medium" style={{ color: accent }}>Términos y condiciones</a>{" "}
-                y la{" "}
-                <a href="#" className="underline font-medium" style={{ color: accent }}>Política de Privacidad</a>{" "}
-                de GastroNext
+            <label className="flex items-start gap-3 cursor-pointer group">
+              <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="w-4 h-4 mt-1 rounded" style={{ accentColor: accent }} />
+              <span className="text-sm text-[#888] leading-snug group-hover:text-gray-600 transition-colors">
+                Acepto los <span className="font-medium" style={{ color: accent }}>Términos</span> y la <span className="font-medium" style={{ color: accent }}>Política de Privacidad</span>.
               </span>
             </label>
-
             <button
               onClick={handleSubmit}
               disabled={!isValid || loading}
-              className="w-full py-4 rounded-xl text-white font-bold text-base tracking-wide transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
-              style={{
-                backgroundColor: isValid && !loading ? accent : "#ccc",
-                boxShadow: isValid ? `0 4px 20px ${accent}35` : "none",
-              }}
+              className="w-full py-4 rounded-xl text-white font-bold transition-all disabled:opacity-40"
+              style={{ backgroundColor: isValid ? accent : "#ccc", boxShadow: isValid ? `0 4px 20px ${accent}35` : "none" }}
             >
-              {loading ? "Creando cuenta..." : "Completar Registro →"}
+              {loading ? "Creando cuenta..." : "Finalizar Registro"}
             </button>
           </div>
         </div>
