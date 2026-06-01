@@ -128,3 +128,8 @@
     @apply font-sans;
   }
 }
+/* En tu archivo CSS global */
+html {
+  scroll-behavior: smooth;
+}
+
