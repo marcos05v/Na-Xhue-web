@@ -5,7 +5,7 @@ export default function Footer() {
         <div>
           <h3 className="text-[#064E3B] font-black text-2xl">Na Xhue</h3>
           <p className="text-[#A8A29E] text-xs mt-1">
-            © 2024 Na Xhue. Precision Logistics for Modern Food Supply Chains.
+            © 2026 Na Xhue. Precision Logistics for Modern Food Supply Chains.
           </p>
         </div>
         <div className="flex gap-6">

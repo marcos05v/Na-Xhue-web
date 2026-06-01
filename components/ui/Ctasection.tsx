@@ -7,7 +7,7 @@ const stats = [
 
 export default function CTASection() {
   return (
-    <section className="w-full bg-[#1A2E14] py-20 px-6 md:px-12">
+    <section id="impacto" className="w-full bg-[#1A2E14] py-20 px-6 md:px-12">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left */}
         <div className="flex-1 max-w-md">
@@ -33,10 +33,10 @@ export default function CTASection() {
           {stats.map((s) => (
             <div
               key={s.label}
-              className="bg-[#FFFFFF0D] border border-[#FFFFFF1A] rounded-2xl p-5 text-center"
+              className="bg-[#FFFFFF0D] border border-[#FFFFFF1A] rounded-2xl p-5 text-center hover:bg-[#FFFFFF1A] hover:border-[#A7F3D0]/50 transition-all duration-300 group cursor-default"
             >
-              <p className="text-white font-black text-3xl">{s.value}</p>
-              <p className="text-[#86EFAC] text-xs uppercase tracking-widest mt-1">
+              <p className="text-white font-black text-3xl group-hover:scale-110 transition-transform duration-300">{s.value}</p>
+              <p className="text-[#86EFAC] text-xs uppercase tracking-widest mt-1 group-hover:text-white transition-colors">
                 {s.label}
               </p>
             </div>

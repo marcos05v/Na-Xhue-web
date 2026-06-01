@@ -1,5 +1,12 @@
 import Image from "next/image";
 
+const productores = [
+  { id: 1, nombre: 'Ana', foto: '/images/cevechería.jpeg' },
+  { id: 2, nombre: 'Benito', foto: '/images/Max_logo_chava.png' },
+  { id: 3, nombre: 'Carla', foto: '/images/mayordomo.jpeg' },
+  { id: 4, nombre: 'David', foto: '/images/xadani.jpeg' },
+];
+
 export default function HeroSection() {
   return (
     <section className="w-full bg-[#F5F5F4]">
@@ -38,13 +45,13 @@ export default function HeroSection() {
 
           <div className="flex items-center gap-4">
             <div className="flex -space-x-3">
-              {[1, 2, 3, 4].map((i) => (
-                <div
-                  key={i}
-                  className="w-11 h-11 rounded-full border-2 border-white bg-linear-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white font-bold shadow-md"
-                >
-                  {String.fromCharCode(64 + i)}
-                </div>
+              {productores.map((prod) => (
+                <img
+                  key={prod.id}
+                  src={prod.foto}
+                  alt={`Foto de ${prod.nombre}`}
+                 className="w-11 h-11 rounded-full border-2 border-white object-cover shadow-md"
+                />
               ))}
             </div>
 
