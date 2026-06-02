@@ -1,8 +1,5 @@
-export default function Logistics(){
+import { LogisticsHistory } from "@/components/ui/logistic/logistica";
 
-    return(
-        <div>
-            <h1>pagina de logisticas</h1>
-        </div>
-    )
+export default function Logistics() {
+  return <LogisticsHistory />;
 }
