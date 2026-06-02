@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Pago from '../cart/Pago';
 
 // Tipado basado en tu esquema (cruzando products, order_items y profiles)
 interface CartItem {
@@ -77,6 +78,7 @@ const logisticsCosts: Record<string, number> = {
 
 export default function ShoppingCart() {
   const [cartItems, setCartItems] = useState<CartItem[]>(initialCart);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
 
   // Funciones de actualización
   const updateQuantity = (id: string, delta: number) => {
@@ -121,6 +123,14 @@ export default function ShoppingCart() {
 
   return (
     <div className="max-w-6xl mx-auto pb-12">
+      <Pago
+  open={showCheckoutModal}
+  onClose={() => setShowCheckoutModal(false)}
+  subtotal={subtotal}
+  envio={totalLogistics}
+  impuestos={taxes}
+  total={total}
+/>
       {/* Header */}
       <div className="flex items-center gap-2 mb-8">
         <Link href="/dashboard" className="text-slate-400 hover:text-[#0f4c3a]">
@@ -252,16 +262,27 @@ export default function ShoppingCart() {
               <span className="text-lg font-bold text-slate-800">Total</span>
               <span className="text-2xl font-black text-[#0f4c3a]">${total.toFixed(2)}</span>
             </div>
+<button
+  disabled={cartItems.length === 0}
+  onClick={() => setShowCheckoutModal(true)}
+  className="w-full bg-[#2a4d3e] text-white font-medium py-3.5 rounded-lg hover:bg-[#1f3a2e] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mb-3 shadow-sm"
+>
+  Proceder al Pago
 
-            <button 
-              disabled={cartItems.length === 0}
-              className="w-full bg-[#2a4d3e] text-white font-medium py-3.5 rounded-lg hover:bg-[#1f3a2e] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mb-3 shadow-sm"
-            >
-              Proceder al Pago
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </button>
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+    />
+  </svg>
+</button>
             
             <Link 
               href="/dashboard/inventory"
@@ -299,5 +320,6 @@ export default function ShoppingCart() {
         </div>
       </div>
     </div>
+    
   );
 }
