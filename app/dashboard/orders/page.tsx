@@ -1,9 +1,5 @@
-export default function Orders(){
+import { Orders } from "@/components/ui/orders/Orders";
 
-    return(
-        <div>
-            <h1>pagina de ordenes</h1>
-        </div>
-    )
-
+export default function OrdersPage() {
+  return <Orders />;
 }

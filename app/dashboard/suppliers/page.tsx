@@ -1,9 +1,5 @@
-export default function Suppliers(){
+import { Suppliers } from "@/components/ui/suppliers/Suppliers";
 
-    return(
-        <div>
-            <h1>pagina de proveedores</h1>
-        </div>
-    )
-
+export default function SuppliersPage() {
+  return <Suppliers />;
 }
